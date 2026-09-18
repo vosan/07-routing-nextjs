@@ -14,7 +14,7 @@ Restart the development server after changing the environment variable. `.env.lo
 ## Routes and project structure
 
 - `/`: the NoteHub introduction.
-- `/notes` and `/notes/filter`: redirect to `/notes/filter/all`.
+- `/notes/filter`: redirects to `/notes/filter/all`.
 - `/notes/filter/all`: all notes with pagination, debounced search, creation, and deletion.
 - `/notes/filter/{tag}`: notes filtered by `Todo`, `Work`, `Personal`, `Meeting`, or `Shopping`. The catch-all page at `app/notes/filter/[...slug]/page.tsx` renders `Notes.client.tsx` from the same folder and validates the tag and rejects extra path segments with the custom 404 page.
 - `app/notes/filter/@sidebar`: the parallel sidebar slot renders `SidebarNotes` alongside the notes. Next.js links update the tag route without a full page reload. Changing tags resets search and pagination.
