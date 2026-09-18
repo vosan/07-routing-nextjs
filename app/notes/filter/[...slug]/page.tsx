@@ -7,7 +7,7 @@ import { notFound } from 'next/navigation';
 import { getErrorMessage } from '@/lib/api';
 import { notesQueryOptions } from '@/lib/queries';
 import { isNoteTag } from '@/types/note';
-import NotesClient from '../../Notes.client';
+import NotesClient from './Notes.client';
 
 export const dynamic = 'force-dynamic';
 

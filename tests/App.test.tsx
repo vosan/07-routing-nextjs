@@ -8,7 +8,7 @@ import {
 } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import App from '../app/notes/Notes.client';
+import App from '../app/notes/filter/[...slug]/Notes.client';
 import { createNote, deleteNote, fetchNotes } from '../lib/api';
 import type { Note } from '../types/note';
 

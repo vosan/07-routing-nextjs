@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getErrorMessage } from '@/lib/api';
 import { noteQueryOptions } from '@/lib/queries';
 import type { Note } from '@/types/note';
-import Modal from '../Modal/Modal';
+import Modal from '@/components/Modal/Modal';
 import css from './NotePreview.module.css';
 
 interface NotePreviewProps {
