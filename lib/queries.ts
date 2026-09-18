@@ -1,10 +1,11 @@
+import type { NoteTag } from '../types/note';
 import { queryOptions } from '@tanstack/react-query';
 import { fetchNoteById, fetchNotes } from './api';
 
-export function notesQueryOptions(search = '', page = 1) {
+export function notesQueryOptions(search = '', page = 1, tag?: NoteTag) {
   return queryOptions({
-    queryKey: ['notes', search, page],
-    queryFn: ({ signal }) => fetchNotes({ page, search, signal }),
+    queryKey: ['notes', search, page, tag ?? 'all'],
+    queryFn: ({ signal }) => fetchNotes({ page, search, tag, signal }),
   });
 }
 

@@ -11,10 +11,11 @@ export async function fetchNotes({
   page,
   perPage = 12,
   search = '',
+  tag,
   signal,
 }: FetchNotesParams): Promise<FetchNotesResponse> {
   const response: AxiosResponse<FetchNotesResponse> = await api.get('/notes', {
-    params: { page, perPage, search },
+    params: { page, perPage, search, ...(tag ? { tag } : {}) },
     signal,
   });
   return response.data;

@@ -10,9 +10,14 @@ import SearchBox from '../../components/SearchBox/SearchBox';
 import Pagination from '../../components/Pagination/Pagination';
 import Modal from '../../components/Modal/Modal';
 import NoteForm from '../../components/NoteForm/NoteForm';
+import type { NoteTag } from '../../types/note';
 import css from './NotesPage.module.css';
 
-export default function NotesClient() {
+interface NotesClientProps {
+  tag?: NoteTag;
+}
+
+export default function NotesClient({ tag }: NotesClientProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const closeModal = useCallback(() => setIsModalOpen(false), []);
   const [searchInput, setSearchInput] = useState('');
@@ -22,7 +27,7 @@ export default function NotesClient() {
     setSearch(value.trim());
     setPage(1);
   }, 300);
-  const notesQuery = useQuery(notesQueryOptions(search, page));
+  const notesQuery = useQuery(notesQueryOptions(search, page, tag));
 
   function handleSearch(value: string) {
     setSearchInput(value);
@@ -73,7 +78,9 @@ export default function NotesClient() {
         <p role="status">
           {search
             ? 'No notes match your search.'
-            : 'No notes yet. Create your first note.'}
+            : tag
+              ? `No notes tagged ${tag} yet.`
+              : 'No notes yet. Create your first note.'}
         </p>
       )}
       {notesQuery.isFetching && !notesQuery.isPending && (

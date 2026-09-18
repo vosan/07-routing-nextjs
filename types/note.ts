@@ -1,4 +1,16 @@
-export type NoteTag = 'Todo' | 'Work' | 'Personal' | 'Meeting' | 'Shopping';
+export const NOTE_TAGS = [
+  'Todo',
+  'Work',
+  'Personal',
+  'Meeting',
+  'Shopping',
+] as const;
+
+export type NoteTag = (typeof NOTE_TAGS)[number];
+
+export function isNoteTag(value: string): value is NoteTag {
+  return NOTE_TAGS.some((tag) => tag === value);
+}
 
 export interface NewNote {
   title: string;
@@ -16,6 +28,7 @@ export interface FetchNotesParams {
   page: number;
   perPage?: number;
   search?: string;
+  tag?: NoteTag;
   signal?: AbortSignal;
 }
 

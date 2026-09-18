@@ -4,7 +4,7 @@ import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as Yup from 'yup';
 import { createNote, getErrorMessage } from '../../lib/api';
-import type { NewNote, NoteTag } from '../../types/note';
+import { NOTE_TAGS, type NewNote } from '../../types/note';
 import css from './NoteForm.module.css';
 
 interface NoteFormProps {
@@ -12,7 +12,6 @@ interface NoteFormProps {
   onSuccess: () => void;
 }
 
-const tags: NoteTag[] = ['Todo', 'Work', 'Personal', 'Meeting', 'Shopping'];
 const initialValues: NewNote = { title: '', content: '', tag: 'Todo' };
 const validationSchema = Yup.object({
   title: Yup.string()
@@ -22,7 +21,7 @@ const validationSchema = Yup.object({
     .required('Title is required'),
   content: Yup.string().max(500, 'Content must be at most 500 characters'),
   tag: Yup.string()
-    .oneOf(tags, 'Choose a valid tag')
+    .oneOf(NOTE_TAGS, 'Choose a valid tag')
     .required('Tag is required'),
 });
 
@@ -104,7 +103,7 @@ export default function NoteForm({ onCancel, onSuccess }: NoteFormProps) {
               aria-invalid={Boolean(touched.tag && errors.tag)}
               aria-describedby="tag-error"
             >
-              {tags.map((tag) => (
+              {NOTE_TAGS.map((tag) => (
                 <option key={tag} value={tag}>
                   {tag}
                 </option>
