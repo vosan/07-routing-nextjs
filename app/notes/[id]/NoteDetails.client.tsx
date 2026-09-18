@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useParams } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { noteQueryOptions } from '../../../lib/queries';
@@ -22,6 +23,9 @@ export default function NoteDetailsClient() {
   return (
     <div className={css.container}>
       <div className={css.item}>
+        <Link href="/notes/filter/all" className={css.backBtn}>
+          Back to notes
+        </Link>
         <div className={css.header}>
           <h2>{note.title}</h2>
         </div>

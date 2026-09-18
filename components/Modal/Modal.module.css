@@ -20,3 +20,9 @@
   position: relative;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
+
+/* Keep long note previews and forms reachable within the viewport. */
+.modal {
+  max-height: 90vh;
+  overflow-y: auto;
+}

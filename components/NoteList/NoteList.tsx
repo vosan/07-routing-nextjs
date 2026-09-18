@@ -38,6 +38,7 @@ export default function NoteList({ notes, onDeleted }: NoteListProps) {
               <Link
                 href={`/notes/${encodeURIComponent(note.id)}`}
                 className={css.link}
+                scroll={false}
               >
                 View details
               </Link>

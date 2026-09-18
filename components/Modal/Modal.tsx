@@ -1,6 +1,12 @@
 'use client';
 
-import { useEffect, useRef, type MouseEvent, type ReactNode } from 'react';
+import {
+  useEffect,
+  useRef,
+  useSyncExternalStore,
+  type MouseEvent,
+  type ReactNode,
+} from 'react';
 import { createPortal } from 'react-dom';
 import css from './Modal.module.css';
 
@@ -10,10 +16,20 @@ interface ModalProps {
   label: string;
 }
 
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
+
 export default function Modal({ children, onClose, label }: ModalProps) {
+  const isClient = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!isClient) return;
     const previousFocus =
       document.activeElement instanceof HTMLElement
         ? document.activeElement
@@ -58,11 +74,13 @@ export default function Modal({ children, onClose, label }: ModalProps) {
       document.body.style.overflow = previousOverflow;
       previousFocus?.focus();
     };
-  }, [onClose]);
+  }, [isClient, onClose]);
 
   function handleBackdropClick(event: MouseEvent<HTMLDivElement>) {
     if (event.target === event.currentTarget) onClose();
   }
+
+  if (!isClient) return null;
 
   return createPortal(
     <div
